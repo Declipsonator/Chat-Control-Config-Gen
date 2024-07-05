@@ -325,10 +325,10 @@ async function getId(playername) {
     return playername;
   }
 
-  const response = await fetch("https://api.mojang.com/users/profiles/minecraft/" + playername);
+  const response = await fetch("https://api.ashcon.app/mojang/v2/user/" + playername);
   const data = await response.json();
-  savedIds[playername] = data.id;
-  return data.id;
+  savedIds[playername] = data.uuid;
+  return data.uuid;
 }
 
 updateConfig();
