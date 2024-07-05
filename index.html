@@ -31,6 +31,13 @@
   <!-- Add your site or application content here -->
   <h1 class="title">Chat Control Config Generator</h1>
   <p>(Strap in because you're about to learn some new words ☹️)</p>
+  <br/>
+  <br/>
+  <div id="addURL">
+    <h1>Add Filters From URL</h1>
+    <input type="text" id="urlInput" value="https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en" placeholder="Enter a URL"/>
+    <input type="submit" id="submitUrl" onclick="submitURL()"/>
+  </div>
   <div id="filters">
     <div id="regexes">
       <h1>Regexes</h1>
@@ -43,7 +50,7 @@
     <div id="phrases">
       <h1>Phrases</h1>
       <div class="plusText">
-        <input type="text" id="phraseInput" placeholder="Enter a regex"/>
+        <input type="text" id="phraseInput" placeholder="Enter a phrase"/>
         <input type="submit" id="submitPhrase" onclick="submitPhrase()"/>
       </div>
       <textarea id="phrasesList" rows="10" cols="30"></textarea>
@@ -51,7 +58,7 @@
     <div id="words">
       <h1>Words</h1>
       <div class="plusText">
-        <input type="text" id="wordInput" placeholder="Enter a regex"/>
+        <input type="text" id="wordInput" placeholder="Enter a word"/>
         <input type="submit" id="submitWord" onclick="submitWord()"/>
       </div>
       <textarea id="wordsList" rows="10" cols="30"></textarea>
@@ -59,10 +66,31 @@
     <div id="standaloneWords">
       <h1>Standalone Words</h1>
       <div class="plusText">
-        <input type="text" id="standaloneWordInput" placeholder="Enter a regex"/>
+        <input type="text" id="standaloneWordInput" placeholder="Enter a word"/>
         <input type="submit" id="submitStandaloneWord" onclick="submitStandaloneWord()"/>
       </div>
       <textarea id="standaloneWordsList" rows="10" cols="30"></textarea>
+    </div>
+  </div>
+  <div id="muting">
+    <div id="mutes">
+      <h1>Mutes</h1>
+      <div class="plusText">
+        <input type="text" id="muteInput" placeholder="Enter a mute"/>
+        <input type="text" id="muteReason" placeholder="Enter a reason"/>
+        <input type="submit" id="submitMute" onclick="submitMute()"/>
+      </div>
+      <textarea id="mutesList" rows="10" cols="30"></textarea>
+    </div>
+    <div id="tempMutes">
+      <h1>Temporary Mutes</h1>
+      <div class="plusText">
+        <input type="text" id="tempMuteInputName" placeholder="Enter a username/uuid"/>
+        <input type="text" id="tempMuteReason" placeholder="Enter a reason"/>
+        <input type="number" id="tempMuteInputHours" placeholder="Hours"/>
+        <input type="submit" id="submitTempMute" onclick="submitTempMute()"/>
+      </div>
+      <textarea id="tempMuteList" rows="10" cols="30"></textarea>
     </div>
   </div>
   <br/>

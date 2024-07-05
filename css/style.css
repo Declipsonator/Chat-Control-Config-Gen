@@ -30,19 +30,27 @@ html {
 }
 
 
-#filters {
+#filters, #muting {
   display: flex;
   justify-content: center;
 }
 
-#regexes, #words, #phrases, #standaloneWords {
+#regexes, #words, #phrases, #standaloneWords, #mutes, #tempMutes {
   margin: 10px;
   border-style: solid;
   border-width: 1px;
   border-color: black;
   padding: 0 10px 10px;
   width: 20%
+}
 
+#addURL {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
@@ -56,8 +64,16 @@ input {
   margin-bottom: 30px;
 }
 
+#tempMuteInputMinutes {
+  max-width: 65px;
+
+}
+
 textarea {
   max-width: 90%;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: scroll;
 }
 
 #output {
