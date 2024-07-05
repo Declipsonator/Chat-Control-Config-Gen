@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <h1 class="title">Chat Control Config Generator</h1>
+  <p>(Strap in because you're about to learn some new words ☹️)</p>
+  <div id="filters">
+    <div id="regexes">
+      <h1>Regexes</h1>
+      <div class="plusText">
+        <input type="text" id="regexInput" placeholder="Enter a regex"/>
+        <input type="submit" id="submitRegex" onclick="submitRegex()"/>
+      </div>
+      <textarea id="regexesList" rows="10" cols="30"></textarea>
+    </div>
+    <div id="phrases">
+      <h1>Phrases</h1>
+      <div class="plusText">
+        <input type="text" id="phraseInput" placeholder="Enter a regex"/>
+        <input type="submit" id="submitPhrase" onclick="submitPhrase()"/>
+      </div>
+      <textarea id="phrasesList" rows="10" cols="30"></textarea>
+    </div>
+    <div id="words">
+      <h1>Words</h1>
+      <div class="plusText">
+        <input type="text" id="wordInput" placeholder="Enter a regex"/>
+        <input type="submit" id="submitWord" onclick="submitWord()"/>
+      </div>
+      <textarea id="wordsList" rows="10" cols="30"></textarea>
+    </div>
+    <div id="standaloneWords">
+      <h1>Standalone Words</h1>
+      <div class="plusText">
+        <input type="text" id="standaloneWordInput" placeholder="Enter a regex"/>
+        <input type="submit" id="submitStandaloneWord" onclick="submitStandaloneWord()"/>
+      </div>
+      <textarea id="standaloneWordsList" rows="10" cols="30"></textarea>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <h1>Output</h1>
+  <textarea id="output" disabled></textarea>
+  <br/>
+  <button onclick="copyToClipboard()">Copy to clipboard</button>
+
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
