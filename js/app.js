@@ -73,6 +73,26 @@ document.getElementById("tempMuteReason").addEventListener("keyup",function(even
     document.getElementById("submitTempMute").click();
   }
 });
+document.getElementById("ignoredPlayerInput").addEventListener("keyup",function(event) {
+  if (event.key === "Enter") {
+    document.getElementById("submitIgnoredPlayer").click();
+  }
+});
+document.getElementById("toReplace").addEventListener("keyup",function(event) {
+  if (event.key === "Enter") {
+    document.getElementById("submitReplacement").click();
+  }
+});
+document.getElementById("replaceWith").addEventListener("keyup",function(event) {
+  if (event.key === "Enter") {
+    document.getElementById("submitReplacement").click();
+  }
+});
+document.getElementById("importText").addEventListener("keyup",function(event) {
+  if (event.key === "Enter") {
+    document.getElementById("submitConfig").click();
+  }
+});
 
 
 
@@ -136,7 +156,7 @@ async function submitMute() {
   updateConfig();
 }
 
-async function submitTempMute() {
+function submitTempMute() {
   const player = document.getElementById("tempMuteInputName").value;
   const reason = document.getElementById("tempMuteReason").value;
   const hours = document.getElementById("tempMuteInputHours").value;
@@ -149,6 +169,33 @@ async function submitTempMute() {
 
   document.getElementById("tempMuteList").innerHTML +=  "" + player + " " + hours + " " + reason + "\n";
   updateConfig();
+
+}
+
+function submitIgnoredPlayer() {
+  const player = document.getElementById("ignoredPlayerInput").value;
+  if (player === "") {
+    return;
+  }
+  document.getElementById("ignoredPlayerInput").value = "";
+
+  document.getElementById("ignoredPlayerList").innerHTML += player + "\n";
+  updateConfig();
+
+}
+
+function submitReplacement() {
+  const toReplace = document.getElementById("toReplace").value;
+  const replaceWith = document.getElementById("replaceWith").value;
+  if (toReplace === "" || replaceWith === "") {
+    return;
+  }
+  document.getElementById("toReplace").value = "";
+  document.getElementById("replaceWith").value = "";
+
+  document.getElementById("replacementsList").innerHTML += toReplace + " " + replaceWith + "\n";
+  updateConfig();
+
 
 }
 
@@ -204,8 +251,65 @@ async function updateConfig() {
     if (reason === "") reason = "No reason provided."
     currentConfig.tempMutedPlayers.push({uuid: uuid, until: Date.now() + hours * 3600000, reason: reason});
   }
+  const ignoredPlayers = document.getElementById("ignoredPlayerList").value.split("\n").filter(Boolean);
+  currentConfig.ignoredPlayers = [];
+  for(let i = 0; i < ignoredPlayers.length; i++) {
+    const uuid = await getId(ignoredPlayers[i].trim());
+    currentConfig.ignoredPlayers.push(uuid);
+  }
+
+  const replacements = document.getElementById("replacementsList").value.split("\n").filter(Boolean);
+  currentConfig.replacementChars = [];
+  for(let i = 0; i < replacements.length; i++) {
+    const split = replacements[i].split(" ");
+    currentConfig.replacementChars.push({toReplace: split[0], replaceWith: split[1]});
+  }
+
+  currentConfig.logFiltered = document.getElementById("logFiltered").checked;
+  currentConfig.ignorePrivateMessages = document.getElementById("ignorePrivateMessages").checked;
+  currentConfig.caseSensitive = document.getElementById("caseSensitive").checked;
+  currentConfig.muteCommand = document.getElementById("muteCommand").checked;
+  currentConfig.tellPlayer = document.getElementById("tellPlayer").checked;
+  currentConfig.censorAndSend = document.getElementById("censorAndSend").checked;
+  currentConfig.muteAfterOffense = document.getElementById("muteAfterOffense").checked;
+  currentConfig.muteAfterOffenseType = document.getElementById("muteAfterOffenseType").value;
+  currentConfig.muteAfterOffenseMinutes = parseInt(document.getElementById("muteAfterOffenseMinutes").value);
+  currentConfig.muteAfterOffenseNumber = parseInt(document.getElementById("muteAfterOffenseNumber").value);
+  currentConfig.offenseExpireMinutes = parseInt(document.getElementById("offenseExpireMinutes").value);
+
 
   document.getElementById("output").innerHTML = JSON.stringify(currentConfig, null, 2);
+}
+
+function loadConfig() {
+  const load = document.getElementById("importText").value;
+  if (load === "") {
+    return;
+  }
+
+  const config = JSON.parse(load);
+
+  document.getElementById("regexesList").value = config.regexes.join("\n");
+  document.getElementById("wordsList").value = config.words.join("\n");
+  document.getElementById("phrasesList").value = config.phrases.join("\n");
+  document.getElementById("standaloneWordsList").value = config.standAloneWords.join("\n");
+  document.getElementById("mutesList").value = config.mutedPlayers.map(player => player.uuid + " " + player.reason).join("\n");
+  document.getElementById("tempMuteList").value = config.tempMutedPlayers.map(player => player.uuid + " " + player.until + " " + player.reason).join("\n");
+  document.getElementById("ignoredPlayerList").value = config.ignoredPlayers.join("\n");
+  document.getElementById("replacementsList").value = config.replacementChars.map(replacement => replacement.toReplace + " " + replacement.replaceWith).join("\n");
+  document.getElementById("logFiltered").checked = config.logFiltered;
+  document.getElementById("ignorePrivateMessages").checked = config.ignorePrivateMessages;
+  document.getElementById("caseSensitive").checked = config.caseSensitive;
+  document.getElementById("muteCommand").checked = config.muteCommand;
+  document.getElementById("tellPlayer").checked = config.tellPlayer;
+  document.getElementById("censorAndSend").checked = config.censorAndSend;
+  document.getElementById("muteAfterOffense").checked = config.muteAfterOffense;
+  document.getElementById("muteAfterOffenseType").value = config.muteAfterOffenseType;
+  document.getElementById("muteAfterOffenseMinutes").value = config.muteAfterOffenseMinutes;
+  document.getElementById("muteAfterOffenseNumber").value = config.muteAfterOffenseNumber;
+  document.getElementById("offenseExpireMinutes").value = config.offenseExpireMinutes;
+
+  updateConfig();
 }
 
 function copyToClipboard() {
@@ -217,6 +321,8 @@ const savedIds = {};
 async function getId(playername) {
   if (savedIds[playername]) {
     return savedIds[playername];
+  } else if (playername.length > 16) {
+    return playername;
   }
 
   const response = await fetch("https://api.mojang.com/users/profiles/minecraft/" + playername);
@@ -234,3 +340,28 @@ for (let i = 0; i < textAreas.length; i++) {
     updateConfig();
   });
 }
+
+const checkBoxes = document.getElementsByTagName("input");
+for (let i = 0; i < checkBoxes.length; i++) {
+  if (checkBoxes[i].type === "checkbox") {
+    checkBoxes[i].addEventListener("change", function() {
+      updateConfig();
+    });
+  }
+}
+
+const selects = document.getElementsByTagName("select");
+for (let i = 0; i < selects.length; i++) {
+  selects[i].addEventListener("change", function() {
+    updateConfig();
+  });
+}
+
+const offenseInputs = document.getElementsByClassName("update");
+for (let i = 0; i < offenseInputs.length; i++) {
+  offenseInputs[i].addEventListener("input", function() {
+    updateConfig();
+  });
+}
+
+

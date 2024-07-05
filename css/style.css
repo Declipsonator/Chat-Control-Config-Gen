@@ -30,12 +30,12 @@ html {
 }
 
 
-#filters, #muting {
+#filters, #muting, #bools, #offense, #tools {
   display: flex;
   justify-content: center;
 }
 
-#regexes, #words, #phrases, #standaloneWords, #mutes, #tempMutes {
+#regexes, #words, #phrases, #standaloneWords, #mutes, #tempMutes, #ignoredPlayers, #replacementChars, #import, #addURL {
   margin: 10px;
   border-style: solid;
   border-width: 1px;
@@ -44,14 +44,56 @@ html {
   width: 20%
 }
 
-#addURL {
+#import input {
+  margin: 0;
+}
+
+#import textarea {
+  overflow-x: hidden;
+  height: 20px;
+}
+
+#replacementChars input {
+  width: 130px;
+}
+
+#bools div {
+  margin: 10px;
+  font-size: 1.3em;
+  padding: 0 10px 0;
+}
+
+#offense div {
+  margin: 10px;
+  font-size: 1.3em;
+  padding: 0 10px 0;
+}
+
+#bools div input {
+  margin: 0 10px;
+}
+
+#bools {
   border-style: solid;
   border-width: 1px;
   border-color: black;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+  width: fit-content;
+  margin: 10px auto;
 }
+
+#offense {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  width: fit-content;
+  margin: 10px auto;
+}
+
+#offense input {
+  width: 70px;
+  margin: 0;
+}
+
 
 h1 {
   font-size: 1.5em;

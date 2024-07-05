@@ -31,12 +31,21 @@
   <!-- Add your site or application content here -->
   <h1 class="title">Chat Control Config Generator</h1>
   <p>(Strap in because you're about to learn some new words ☹️)</p>
+  <p>When you're done, copy the config and put it in config/chatcontrol.json in your minecraft folder</p>
+  <p></p>
   <br/>
   <br/>
-  <div id="addURL">
-    <h1>Add Filters From URL</h1>
-    <input type="text" id="urlInput" value="https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en" placeholder="Enter a URL"/>
-    <input type="submit" id="submitUrl" onclick="submitURL()"/>
+  <div id="tools">
+    <div id="import">
+      <h1>Import Config</h1>
+      <textarea id="importText"></textarea>
+      <input type="submit" id="submitConfig" onclick="loadConfig()"/>
+    </div>
+    <div id="addURL">
+      <h1>Add Filters From URL</h1>
+      <input type="text" id="urlInput" value="https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en" placeholder="Enter a URL"/>
+      <input type="submit" id="submitUrl" onclick="submitURL()"/>
+    </div>
   </div>
   <div id="filters">
     <div id="regexes">
@@ -73,10 +82,19 @@
     </div>
   </div>
   <div id="muting">
+    <div id="replacementChars">
+      <h1>Replacement Chars</h1>
+      <div class="plusText">
+        <input type="text" id="toReplace" placeholder="Letter to replace" maxlength="1"/>
+        <input type="text" id="replaceWith" placeholder="Letter to replace with" maxlength="1"/>
+        <input type="submit" id="submitReplacement" onclick="submitReplacement()"/>
+      </div>
+      <textarea id="replacementsList" rows="10" cols="30"></textarea>
+    </div>
     <div id="mutes">
       <h1>Mutes</h1>
       <div class="plusText">
-        <input type="text" id="muteInput" placeholder="Enter a mute"/>
+        <input type="text" id="muteInput" placeholder="Enter a username/uuid"/>
         <input type="text" id="muteReason" placeholder="Enter a reason"/>
         <input type="submit" id="submitMute" onclick="submitMute()"/>
       </div>
@@ -92,7 +110,69 @@
       </div>
       <textarea id="tempMuteList" rows="10" cols="30"></textarea>
     </div>
+    <div id="ignoredPlayers">
+      <h1>Ignored Players</h1>
+      <div class="plusText">
+        <input type="text" id="ignoredPlayerInput" placeholder="Enter a username/uuid"/>
+        <input type="submit" id="submitIgnoredPlayer" onclick="submitIgnoredPlayer()"/>
+      </div>
+      <textarea id="ignoredPlayerList" rows="10" cols="30"></textarea>
+    </div>
   </div>
+  <div id="bools">
+    <div>
+      <input type="checkbox" id="logFiltered" checked/>
+      <label for="logFiltered">Log Filtered Messages</label>
+    </div>
+    <div>
+      <input type="checkbox" id="ignorePrivateMessages"/>
+      <label for="ignorePrivateMessages">Ignore Private Messages</label>
+    </div>
+    <div>
+      <input type="checkbox" id="caseSensitive"/>
+      <label for="caseSensitive">Case Sensitive</label>
+    </div>
+    <div>
+      <input type="checkbox" id="muteCommand" checked/>
+      <label for="muteCommand">Mute Command</label>
+    </div>
+    <div>
+      <input type="checkbox" id="tellPlayer" checked/>
+      <label for="tellPlayer">Tell Player</label>
+    </div>
+    <div>
+      <input type="checkbox" id="censorAndSend"/>
+      <label for="censorAndSend">Censor and Send</label>
+    </div>
+    <div>
+      <input type="checkbox" id="muteAfterOffense"/>
+      <label for="muteAfterOffense">Mute After Offense</label>
+    </div>
+  </div>
+  <div id="offense">
+    <div>
+      <select id="muteAfterOffenseType">
+        <option value="TEMPORARY">TEMPORARY</option>
+        <option value="PERMANENT">PERMANENT</option>
+      </select>
+      <label for="muteAfterOffenseType">Mute After Offense Type</label>
+    </div>
+    <div>
+      <input type="number" id="muteAfterOffenseMinutes" class="update" value="5">
+      <label for="muteAfterOffenseMinutes">Automute length in minutes </label>
+    </div>
+    <div>
+      <input type="number" id="muteAfterOffenseNumber" class="update" value="3">
+      <label for="muteAfterOffenseNumber">Mute After Offense Number</label>
+    </div>
+    <div>
+      <input type="number" id="offenseExpireMinutes" class="update" value="30">
+      <label for="offenseExpireMinutes">Offense Expire Minutes</label>
+    </div>
+  </div>
+
+  </div>
+
   <br/>
   <br/>
   <br/>
